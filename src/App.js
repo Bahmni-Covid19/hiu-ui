@@ -23,7 +23,7 @@ function App() {
     <>
       <CssBaseline />
       <Container className={classes.container}>
-        <HashRouter basename={Config.ENV_BASE_NAME}>
+        <HashRouter basename={Config.BASE_NAME}>
           <Route history={history} component={LoginPage} path="/login" />
           <PrivateRoute
             component={ResetPassword}

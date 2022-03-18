@@ -18,7 +18,7 @@ const Header = () => {
       <AppBar color="textPrimary">
         <Toolbar>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
-            <Link href={Config.ENV_BASE_NAME}>
+            <Link href={Config.BASE_NAME}>
               LOGO
             </Link>
           </Typography>

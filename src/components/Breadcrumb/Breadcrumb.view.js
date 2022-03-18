@@ -16,7 +16,7 @@ const Breadcrumb = () => {
   const classes = useStyles();
   return (
     <Breadcrumbs className={classes.container} aria-label="breadcrumb">
-      <Link color="inherit" href={Config.ENV_BASE_NAME}>
+      <Link color="inherit" href={Config.BASE_NAME}>
         Consent List
       </Link>
       <Typography color="textPrimary">Health Data</Typography>

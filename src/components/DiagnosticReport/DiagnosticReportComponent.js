@@ -98,7 +98,7 @@ const DiagnosticReportComponent = ({ data, consentReqId }) => {
   function generateImageUrl(url) {
     const urlArray = url.split('/');
     const StudyInstanceUID = urlArray.slice(-1).pop();
-    const dicomCtx = btoa(Config.ENV_DICOM_SERVER_PATH);
+    const dicomCtx = btoa(Config.DICOM_SERVER_PATH);
 
     const dicomUrl = `${window.location.origin
     }/viewer/${

@@ -7,7 +7,7 @@ export default (
   url,
   data,
   headers = defaultHeaders,
-  baseURL = Config.ENV_BACKEND_BASE_URL + Config.ENV_BACKEND_API_PATH,
+  baseURL = Config.BACKEND_BASE_URL + Config.BACKEND_API_PATH,
 ) => axios({
   headers,
   method,

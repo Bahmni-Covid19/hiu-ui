@@ -27,7 +27,7 @@ function* onSignInSuccess(action) {
     'auth-token',
     action.payload.data.accessToken
   );
-  history.push(Config.ENV_BASE_NAME);
+  history.push(Config.BASE_NAME);
 }
 
 export default {
