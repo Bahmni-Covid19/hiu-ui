@@ -15,24 +15,19 @@ import MedicationDose from './MedicationDose';
 
 
 const displayCodeableConcept = (codeableConcept, defaultText) => {
-  if (codeableConcept.text) {
-    return codeableConcept.text;
-  }
-  if (codeableConcept.coding) {
-    return codeableConcept.coding[0].display
-      ? codeableConcept.coding[0].display
-      : codeableConcept.coding[0].code;
+  const ext = codeableConcept.targetResource.extension[0];
+  if (ext.extension[0]) {
+    return ext.extension[0].valueString;
   }
   return defaultText;
 };
 
 const findMedicationName = (mr) => {
-  const medicationConcept 
-    = (mr.medicationReference && mr.medicationReference.targetResource) 
-      ? mr.medicationReference.targetResource.code 
-      : mr.medicationCodeableConcept;
-  if (!medicationConcept) return "Unspecified";
-  return displayCodeableConcept(medicationConcept, 'Unspecified');
+  console.log(mr);
+  console.log(mr.medicationReference.targetResource.extension[0].extension[0].valueString);
+  return (mr.medicationReference && mr.medicationReference.display)
+      ? mr.medicationReference.display
+      : displayCodeableConcept(mr.medicationReference,'Unspecified');
 };
 
   
