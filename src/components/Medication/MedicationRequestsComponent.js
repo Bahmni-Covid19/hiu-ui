@@ -76,7 +76,7 @@ const MedicationRequestsComponent = ({ medicationRequests }) => (medicationReque
           {medicationRequests.map((mr, index) => (
             <TableRow key={index}>
               <TableCell className="table-cell">
-                {mr.authoredOn ? formatDateString(mr.authoredOn) : ''}
+                {mr.dosageInstruction[0].timing.event[0] ? formatDateString(mr.dosageInstruction[0].timing.event[0]) : ''}
               </TableCell>
               <TableCell className="table-cell">
                 {findMedicationName(mr)}
