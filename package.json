@@ -13,10 +13,6 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
   },
-  "engines": {
-    "npm": ">=8.0.0 <9.0.0",
-    "node": ">=18.0.0"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
