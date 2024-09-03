@@ -57,6 +57,10 @@ const ConsentsListTable = ({ loadConsents, consentsList, loading }) => {
     return status.toUpperCase() == 'GRANTED';
   }
 
+  function showConsentTimeStamp(status) {
+    return isGranted(status) || status.toUpperCase() == 'EXPIRED';
+  }
+
   function getPatientFullName(patient) {
     return `${patient.firstName} ${patient.lastName}`;
   }
@@ -103,10 +107,10 @@ const ConsentsListTable = ({ loadConsents, consentsList, loading }) => {
             name: getPatientFullName(consent.patient),
             id: consent.patient.id,
             status: getStatusText(consent.status),
-            grantedOn: isGranted(consent.status)
+            grantedOn: showConsentTimeStamp(consent.status)
               ? formatDateString(consent.approvedDate, true)
               : '-',
-            expiredOn: isGranted(consent.status)
+            expiredOn: showConsentTimeStamp(consent.status)
               ? formatDateString(consent.expiredDate, true)
               : '-',
             createdOn: formatDateString(consent.createdDate, true),
