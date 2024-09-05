@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { formatDateString } from '../common/HealthInfo/FhirResourcesUtils';
 import compareDates from '../common/DateUtil';
+import ConsentDetailPanel from './ConsentDetailPanel';
 
 const useStyles = makeStyles(theme => ({
   table: {
@@ -31,7 +32,7 @@ const ConsentsListTable = ({ loadConsents, consentsList, loading }) => {
     requestStatus: 'Request Status',
     consentGrantedDate: 'Consent granted on',
     consentExpiryDate: 'Consent expiry on',
-    consentCreatedDate: 'Consent created on'
+    consentCreatedDate: 'Requested on'
   };
 
   function getStatusText(status) {
@@ -45,9 +46,9 @@ const ConsentsListTable = ({ loadConsents, consentsList, loading }) => {
       case 'DENIED':
         return 'Request Denied';
       case 'REVOKED':
-      return 'Consent Revoked';
+        return 'Consent Revoked';
       case 'EXPIRED':
-      return 'Consent Expired';
+        return 'Consent Expired';
       default:
         return 'Request sent';
     }
@@ -55,6 +56,10 @@ const ConsentsListTable = ({ loadConsents, consentsList, loading }) => {
 
   function isGranted(status) {
     return status.toUpperCase() == 'GRANTED';
+  }
+
+  function showGrantedAndExpiredDate(status) {
+    return isGranted(status) || status.toUpperCase() == 'EXPIRED' || status.toUpperCase() == 'REVOKED';
   }
 
   function getPatientFullName(patient) {
@@ -103,10 +108,10 @@ const ConsentsListTable = ({ loadConsents, consentsList, loading }) => {
             name: getPatientFullName(consent.patient),
             id: consent.patient.id,
             status: getStatusText(consent.status),
-            grantedOn: isGranted(consent.status)
+            grantedOn: showGrantedAndExpiredDate(consent.status)
               ? formatDateString(consent.approvedDate, true)
               : '-',
-            expiredOn: isGranted(consent.status)
+            expiredOn: showGrantedAndExpiredDate(consent.status)
               ? formatDateString(consent.expiredDate, true)
               : '-',
             createdOn: formatDateString(consent.createdDate, true),
@@ -116,7 +121,8 @@ const ConsentsListTable = ({ loadConsents, consentsList, loading }) => {
               </Link>
             ) : (
               ''
-            )
+            ),
+            consentDetail: consent
           }))}
         title={(
           <Typography className={classes.title} variant="h5">
@@ -131,6 +137,9 @@ const ConsentsListTable = ({ loadConsents, consentsList, loading }) => {
             onClick: () => setRefreshCounter(refreshCounter + 1)
           }
         ]}
+        detailPanel={rowData => (
+          <ConsentDetailPanel consentDetail={rowData.consentDetail}/>
+        )}
       />
     </div>
   );

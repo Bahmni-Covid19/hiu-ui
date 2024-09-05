@@ -37,7 +37,7 @@ exports[`ConsentsListTable should render properly 1`] = `
         Object {
           "customSort": [Function],
           "field": "createdOn",
-          "title": "Consent created on",
+          "title": "Requested on",
         },
         Object {
           "customSort": [Function],
