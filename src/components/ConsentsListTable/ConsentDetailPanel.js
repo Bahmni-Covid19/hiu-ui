@@ -72,7 +72,7 @@ const consentArtefactDetailsComponent = (consentArtefacts) => {
                         </TableHead>
                         <TableBody>
                             {consentArtefacts.map((consentArtefact, index) => {
-                                return (<TableRow>
+                                return (<TableRow key={index}>
                                     <TableCell>{consentArtefact.hipName}</TableCell>
                                     <TableCell>{consentArtefact.status}</TableCell>
                                     <TableCell>{formatDateString(consentArtefact.dateModified, true)}</TableCell>
@@ -86,9 +86,14 @@ const consentArtefactDetailsComponent = (consentArtefacts) => {
 }
 
 
-const ConsentDetailPanel = ({ consentDetail }) => {
+const ConsentDetailPanel = ({ consentDetail, purposesOfUse }) => {
     const classes = useStyles();
     const consentStatus = consentDetail.status;
+    const getPurposeDisplayValue = (code) => {
+        const purpose = purposesOfUse.find(p => p.code === code);
+        return purpose ? purpose.display : code;
+    };
+
     return (
         <Grid container spacing={1} className={classes.detailPanel}>
             <Grid item xs={6}>
@@ -101,6 +106,11 @@ const ConsentDetailPanel = ({ consentDetail }) => {
                     <strong>Requested Date Range:</strong> {getPermissionDateRangeText(consentDetail.permission)}
                 </Typography>
             </Grid>
+            {consentDetail.purpose?.code &&
+            <Grid item xs={12}>
+                <strong>Purpose of Request:</strong> {getPurposeDisplayValue(consentDetail.purpose.code)}
+            </Grid>
+            }
             <Grid item xs={12}>
                 {consentStatus === 'DENIED' && consentDeniedComponent(consentDetail.dateModified)}
                 {consentStatus === 'EXPIRED' && consentExpiredComponent(consentDetail.expiredDate)}
@@ -124,7 +134,8 @@ const ConsentDetailPanel = ({ consentDetail }) => {
 };
 
 ConsentDetailPanel.propTypes = {
-    consentDetail: PropTypes.object.isRequired
+    consentDetail: PropTypes.object.isRequired,
+    purposesOfUse: PropTypes.array
 };
 
 export default ConsentDetailPanel;

@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ConsentsListTable = ({ loadConsents, consentsList, loading }) => {
+const ConsentsListTable = ({ loadConsents, consentsList, loading, purposesOfUse }) => {
   const classes = useStyles();
   const [refreshCounter, setRefreshCounter] = useState(0);
   useEffect(() => {
@@ -138,7 +138,7 @@ const ConsentsListTable = ({ loadConsents, consentsList, loading }) => {
           }
         ]}
         detailPanel={rowData => (
-          <ConsentDetailPanel consentDetail={rowData.consentDetail}/>
+          <ConsentDetailPanel consentDetail={rowData.consentDetail} purposesOfUse={purposesOfUse}/>
         )}
       />
     </div>
@@ -161,7 +161,8 @@ const consentShape = PropTypes.shape({
 ConsentsListTable.propTypes = {
   loadConsents: PropTypes.func.isRequired,
   consentsList: PropTypes.arrayOf(consentShape).isRequired,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  purposesOfUse: PropTypes.array
 };
 
 ConsentsListTable.defaultProps = {
